@@ -1,0 +1,37 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Reset your password{% endblock %}
+
+{% block body %}
+{% form_theme requestForm 'form/form_errors.html.twig' %}
+ {% include 'section/top.html' %}
+ <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+        <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Reset Password</p>
+    {% for flash_error in app.flashes('reset_password_error') %}
+        <div class="alert alert-danger" role="alert">{{ flash_error }}</div>
+    {% endfor %}
+   
+
+    {{ form_start(requestForm, {'attr':{'class': 'mx-1 mx-md-4'}}) }}
+        <div class="form-outline mb-4">
+            {{ form_label(requestForm.email, 'Email Address' ,{'label_attr': {'class': 'form-label'}}) }}
+            {{ form_widget(requestForm.email, {'attr': {'class': 'form-control'}}) }}
+            {{ form_errors(requestForm.email) }}
+        </div>
+        <div>
+            <small>
+                Enter your email address and we will send you a
+                link to reset your password.
+            </small>
+        </div>
+
+        {{ form_widget(requestForm.reset, {'attr': {'class': 'btn btn-primary btn-block mb-4'}, 'name': 'Reset Your Password'}) }}
+
+        <!-- Register buttons -->
+        <div class="text-center">
+            <p>Not a member? <a href="{{ path('app_registration') }}">Register</a></p>
+        </div>
+    {{ form_end(requestForm) }}
+</div>
+ {% include 'section/bottom.html' %}
+{% endblock %}

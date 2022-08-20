@@ -1,0 +1,52 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}LoginController!{% endblock %}
+
+{% block body %}
+{% form_theme form 'form/form_errors.html.twig' %}
+    {% include 'section/top.html' %}
+     <div class="col-md-10 col-lg-6 col-xl-5 order-2 order-lg-1">
+        <p class="text-center h1 fw-bold mb-5 mx-1 mx-md-4 mt-4">Sign In</p>
+        {% if error %} <div>{{ error.messageKey|trans(error.messageData, 'security') }}</div> {% endif %}
+        {{ form_start(form, {'attr':{'class': 'mx-1 mx-md-4'}}) }}
+            <!-- Email input -->
+            <div class="form-outline mb-4">
+                {{ form_label(form.username, 'Email Address' ,{'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.username, {'attr': {'class': 'form-control'}, 'full_name':'_username'}) }}
+                {{ form_errors(form.username) }}
+            </div>
+
+            <!-- Password input -->
+            <div class="form-outline mb-4">
+                {{ form_label(form.password, 'Password' ,{'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.password, {'attr': {'class': 'form-control'}, 'full_name':'_password'}) }}
+                {{ form_errors(form.password) }}
+            </div>
+
+            <!-- 2 column grid layout for inline styling -->
+            <div class="row mb-4">
+                <div class="col d-flex justify-content-center">
+                <!-- Checkbox -->
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="_remember_me" id="rememberme" checked />
+                    <label class="form-check-label" for="rememberme"> Remember me </label>
+                </div>
+                </div>
+
+                <div class="col">
+                <!-- Simple link -->
+                <a href="{{ path('app_forgot_password_request') }}">Forgot password?</a>
+                </div>
+            </div>
+
+            <!-- Submit button -->
+            {{ form_widget(form.login, {'attr': {'class': 'btn btn-primary btn-block mb-4'}}) }}
+
+            <!-- Register buttons -->
+            <div class="text-center">
+                <p>Not a member? <a href="{{ path('app_registration') }}">Register</a></p>
+            </div>
+        {{ form_end(form) }}
+    </div>
+ {% include 'section/bottom.html' %}
+{% endblock %}
