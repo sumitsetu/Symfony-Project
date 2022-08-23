@@ -47,6 +47,8 @@ class UserLoginTest extends WebTestCase
             0,
             $crawler->filter('html:contains("DashboardController")')->count(), 'actual is not greater then expected'
         ); 
+
+        $this->client->restart();
     } 
 
     public function testUserLoginUsingGet()
@@ -62,5 +64,8 @@ class UserLoginTest extends WebTestCase
             0,
             $crawler->filter('html:contains("DashboardController")')->count(), 'actual is not greater then expected'
         ); 
+
+        $this->client->restart();
     }
+
 }

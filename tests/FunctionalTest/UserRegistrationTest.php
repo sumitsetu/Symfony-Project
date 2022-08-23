@@ -59,5 +59,7 @@ class UserRegistrationTest extends WebTestCase
             0,
             $crawler->filter('html:contains("Sign In")')->count(), 'actual is not greater then expected'
         ); 
+
+        $this->client->restart();
     }
 }
