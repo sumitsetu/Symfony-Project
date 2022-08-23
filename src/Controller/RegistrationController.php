@@ -22,35 +22,39 @@ class RegistrationController extends AbstractController
         $entityManager = $doctrine->getManager();
        
         $new_user = new User();
-        $request = Request::createFromGlobals();
-      
+       // $request = Request::createFromGlobals();
+
         $form = $this->createForm(UserRegistrationType::class);
+       
         $form->handleRequest($request);
-        if ($form->isSubmitted() && $form->isValid()) {
+        
+        if ($request->isMethod('POST')) {
+            if ($form->isSubmitted() && $form->isValid()) {
+                $submittedToken = $request->request->all()['user_registration']['_token'];
+               if ($this->isCsrfTokenValid('user_registration', $submittedToken)) {
+                    $user_registration = $form->getData();
+                    $new_user->setName($user_registration['_user']);
+                    $new_user->setEmail($user_registration['email']);
+                    //$new_user->setRoles(['ROLE_USER']);
+                    $plaintextPassword = $user_registration['password'];
+                    $hashedPassword = $passwordHasher->hashPassword(
+                        $new_user,
+                        $plaintextPassword
+                    );
 
-            $submittedToken = $request->request->all()['user_registration']['_token'];
- 
-            if ($this->isCsrfTokenValid('user_registration', $submittedToken)) {
-                $user_registration = $form->getData();
-                $new_user->setName($user_registration['_user']);
-                $new_user->setEmail($user_registration['email']);
-                //$new_user->setRoles(['ROLE_USER']);
+                    $new_user->setPassword($hashedPassword);
+                    $entityManager->persist($new_user);
+                    $entityManager->flush();
 
-                $plaintextPassword = $user_registration['password'];
-                $hashedPassword = $passwordHasher->hashPassword(
-                    $new_user,
-                    $plaintextPassword
-                );
+                    return $this->redirectToRoute('app_login');
 
-                $new_user->setPassword($hashedPassword);
-                $entityManager->persist($new_user);
-                $entityManager->flush();
-
-                return $this->redirectToRoute('app_dashboard');
-
+               }       
+            }
+            else{
+                dd($form->getErrors());
             }
         }
-    
+
 
         return $this->renderForm('registration/index.html.twig', [
             'form' => $form,
