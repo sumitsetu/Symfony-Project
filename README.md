@@ -9,3 +9,8 @@
 > - Configure mailer in .env file and send emails
 > 
 > - Reset password functionality
+
+
+### Added Functional Test for User Registration and Login Module
+### Added  Makefile to run tests - Use Command 
+> **`make tests`**
