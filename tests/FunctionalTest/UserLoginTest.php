@@ -27,7 +27,7 @@ class UserLoginTest extends WebTestCase
       
     }
 
-     public function testUserLoginUsingPost()
+    public function testUserLoginUsingPost()
     {  
      
         $tokenId = "authenticate";
@@ -40,7 +40,7 @@ class UserLoginTest extends WebTestCase
 
         $getToken = $this->container->get('security.csrf.token_manager')->getToken('authenticate')->getValue();
         $csrfdata = array('login'=>'', '_token'=>$getToken);
-        $crawler = $this->client->request('POST', '/login', array('_username' => 'sumogo11@cc.com', '_password' => "123456",  'user_login' => $csrfdata));
+        $crawler = $this->client->request('POST', '/login', array('_username' => 'sumogo13@cc.com', '_password' => "123456",  'user_login' => $csrfdata));
         $crawler = $this->client->followRedirect();
 
         $this->assertGreaterThan(
@@ -54,7 +54,7 @@ class UserLoginTest extends WebTestCase
         $crawler = $this->client->request('GET', '/login');
         $buttonCrawlerNode = $crawler->selectButton('user_login[login]');
         $form = $buttonCrawlerNode->form();
-        $data = array('_username' => 'sumogo11@cc.com','_password' => '123456');
+        $data = array('_username' => 'sumogo13@cc.com','_password' => '123456');
         $this->client->submit($form,$data);
         $crawler = $this->client->followRedirect();
         $crawler = $this->client->request('GET', '/dashboard');

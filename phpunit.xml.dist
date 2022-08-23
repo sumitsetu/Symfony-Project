@@ -21,6 +21,10 @@
         <testsuite name="Test Suite">
             <directory>tests</directory>
         </testsuite>
+        <testsuite name="User">
+            <file>tests/FunctionalTest/UserRegistrationTest.php</file>
+            <file>tests/FunctionalTest/UserLoginTest.php</file>
+        </testsuite>
     </testsuites>
 
     <coverage processUncoveredFiles="true">

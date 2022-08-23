@@ -8,7 +8,6 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Session\Session;
 use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
-use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\TokenStorage\SessionTokenStorage;
 
 class UserRegistrationTest extends WebTestCase
@@ -38,17 +37,12 @@ class UserRegistrationTest extends WebTestCase
         $this->session->set(SessionTokenStorage::SESSION_NAMESPACE . "/$tokenId", $csrfToken);
         $this->session->save();
        
-        //$this->container->get('security.csrf.token_storage')->setToken('user_registration',  $csrfToken);
-
         $cookie = new Cookie($this->session->getName(), $this->session->getId());
         $this->client->getCookieJar()->set($cookie);
         $gettoken = $this->container->get('security.csrf.token_manager')->getToken('user_registration')->getValue();
-        //dd($gettoken);
-        //$gettoken = new CsrfToken($tokenId, $csrfToken);
-        //dd($gettoken);
         $registration_data = array(
-            '_user' => 'sumogo11', 
-            'email' => "sumogo11@cc.com",
+            '_user' => 'sumogo13', 
+            'email' => "sumogo13@cc.com",
             'password' => array(
                 "password" => 123456,
                 "confirm_password" => "123456"
