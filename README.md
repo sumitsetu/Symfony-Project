@@ -1,4 +1,6 @@
-# Learn Symfony With Examples
+# Learn Symfony With Examples 
+
+> **Requirement** - Php 8 and Symfony 6.1
 ##### **main branch** and **feature/Symfony-User-Login** is same.
 
 ## After Cloning this Repo use main or feature/Symfony-User-Login Branch for:-
